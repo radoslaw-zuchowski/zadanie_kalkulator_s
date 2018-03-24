@@ -22,10 +22,14 @@ public class CurrencyServiceImpl implements CurrencyService {
 
 	private static final String URL = "http://api.nbp.pl/api/exchangerates/rates/A/";
 	private static final String JSON_SUFIX = "?format=json";
+	private static final String PLN_CODE = "PLN";
 
 	
 	@Override
 	public BigDecimal getCourseByCode(String currencyCode) throws IOException, JSONException {
+		if (currencyCode.equals(PLN_CODE)) {
+			return new BigDecimal(1);
+		}
 		URL url = createUrl(currencyCode);
 		StringBuilder response = getRequest(url);
 		Double result = getCourseFromJson(response);
