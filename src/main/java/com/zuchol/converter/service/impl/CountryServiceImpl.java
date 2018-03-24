@@ -1,11 +1,13 @@
 package com.zuchol.converter.service.impl;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +60,8 @@ public class CountryServiceImpl implements CountryService {
 
 
 	@Override
-	public String getPayment(BigDecimal value, Long countryId) {
+	public String getPayment(BigDecimal value, Long countryId) 
+			throws IOException, JSONException  {
 		
 		Country country = getCountryById(countryId);
 		BigDecimal monthValue = value.multiply(DAYS_IN_MONTH);
@@ -77,7 +80,9 @@ public class CountryServiceImpl implements CountryService {
 	}
 	
 	
-	private BigDecimal getRecalculatedValue(String currencyCode, BigDecimal value) {
+	private BigDecimal getRecalculatedValue(String currencyCode, BigDecimal value) 
+			throws IOException, JSONException  {
+		
 		BigDecimal course = currencySerive.getCourseByCode(currencyCode);
 		BigDecimal resultValue = value.multiply(course);
 		return resultValue.setScale(2, RoundingMode.HALF_UP);

@@ -1,9 +1,9 @@
 package com.zuchol.converter.service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
-
-import org.springframework.stereotype.Service;
+import org.json.JSONException;
 
 public interface CurrencyService {
 	
@@ -13,6 +13,6 @@ public interface CurrencyService {
 	 * @param currencyCode code of currency
 	 * @return course
 	 */
-	BigDecimal getCourseByCode(String currencyCode);
+	BigDecimal getCourseByCode(String currencyCode) throws IOException, JSONException ;
 
 }

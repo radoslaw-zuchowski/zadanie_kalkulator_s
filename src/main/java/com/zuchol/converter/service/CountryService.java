@@ -1,7 +1,10 @@
 package com.zuchol.converter.service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+
+import org.json.JSONException;
 
 import com.zuchol.converter.model.Country;
 
@@ -49,7 +52,7 @@ public interface CountryService {
 	 * @param countryId id of country
 	 * @return monthly net payment
 	 */
-	String getPayment(BigDecimal value, Long countryId);
+	String getPayment(BigDecimal value, Long countryId) throws IOException, JSONException ;
 	
 	
 }
