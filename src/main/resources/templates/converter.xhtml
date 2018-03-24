@@ -5,6 +5,10 @@
     <title>Money converter</title>
 </head>
 <body>
+
+	<div class="alert alert-danger" th:if="${error}">
+	    <p th:text="${error}"></p>    
+	</div>
 	
 
     <form action="#" th:action="@{/}" method="post">

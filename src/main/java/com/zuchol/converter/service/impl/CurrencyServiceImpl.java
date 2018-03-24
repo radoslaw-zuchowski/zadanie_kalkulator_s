@@ -20,8 +20,8 @@ import com.zuchol.converter.service.CurrencyService;
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
 
-	public static final String URL = "http://api.nbp.pl/api/exchangerates/rates/A/";
-	public static final String JSON_SUFIX = "?format=json";
+	private static final String URL = "http://api.nbp.pl/api/exchangerates/rates/A/";
+	private static final String JSON_SUFIX = "?format=json";
 
 	
 	@Override

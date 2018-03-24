@@ -22,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class IndexController {
 	
+	public static final String CONVERTER_PAGE = "converter";
+	
 	@Autowired
 	@Setter
 	private CountryService countryService;
@@ -31,7 +33,7 @@ public class IndexController {
 		List<Country> countryList = countryService.getAllCountries();
 		model.addAttribute("countries", countryList);
 		model.addAttribute("requestCountryId", countryList.get(0));
-        return "converter";
+        return CONVERTER_PAGE;
     }
 	
 	
@@ -40,23 +42,30 @@ public class IndexController {
     		, @RequestParam("price") BigDecimal price
     		, @RequestParam("country") Long countryId) {
 		
+		model.addAttribute("countries", countryService.getAllCountries());
+		model.addAttribute("requestCountryId", countryId);
+       
+		if (price == null) {
+			model.addAttribute("error", "Price can't by empty");
+			return CONVERTER_PAGE;
+		}
+		
 		String resultValue;
 		try {
 			resultValue = countryService.getPayment(price, countryId);
 		} catch (IOException e) {
-			resultValue = "Error IOException";
 			log.error("IOException error: ", e);
+			model.addAttribute("error", "Ther are problems with connection to NBP");
+			return CONVERTER_PAGE;
 		} catch (JSONException e) {
-			resultValue = "Error JSONException";
 			log.error("JSONException error: ", e);
+			model.addAttribute("error", "Ther are problems with converting response from NBP");
+			return CONVERTER_PAGE;
 		}
 		
-		
-		model.addAttribute("countries", countryService.getAllCountries());
-		model.addAttribute("resultValue", resultValue);
 		model.addAttribute("requestValue", price);
-		model.addAttribute("requestCountryId", countryId);
-        return "converter";
+		model.addAttribute("resultValue", resultValue);
+		return CONVERTER_PAGE;
     }
 	
 	
