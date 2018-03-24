@@ -7,6 +7,12 @@ import org.springframework.stereotype.Service;
 
 public interface CurrencyService {
 	
-	BigDecimal getCurrencyByCode(String currencyCode);
+	/**
+	 * Get current course by currency code
+	 * 
+	 * @param currencyCode code of currency
+	 * @return course
+	 */
+	BigDecimal getCourseByCode(String currencyCode);
 
 }

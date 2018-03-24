@@ -1,6 +1,7 @@
 package com.zuchol.converter.service.impl;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -63,8 +64,8 @@ public class CountryServiceImpl implements CountryService {
 		BigDecimal monthValue = value.multiply(DAYS_IN_MONTH);
 		BigDecimal taxes = getTaxes(monthValue, country);
 		BigDecimal result = monthValue.subtract(taxes);
-		
-		return result.toString();
+		BigDecimal recalculatedValue = getRecalculatedValue(country.getCurrencyCode(), result);
+		return recalculatedValue.toString();
 	}
 	
 	
@@ -75,6 +76,12 @@ public class CountryServiceImpl implements CountryService {
 		return value.subtract(allTaxes);
 	}
 	
+	
+	private BigDecimal getRecalculatedValue(String currencyCode, BigDecimal value) {
+		BigDecimal course = currencySerive.getCourseByCode(currencyCode);
+		BigDecimal resultValue = value.multiply(course);
+		return resultValue.setScale(2, RoundingMode.HALF_UP);
+	}
 	
 	
 }

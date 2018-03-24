@@ -10,9 +10,9 @@ import com.zuchol.converter.service.CurrencyService;
 public class CurrencyServiceImpl implements CurrencyService {
 
 	@Override
-	public BigDecimal getCurrencyByCode(String currencyCode) {
-		// TODO Auto-generated method stub
-		return null;
+	public BigDecimal getCourseByCode(String currencyCode) {
+		
+		return new BigDecimal(1);
 	}
 
 	
