@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zuchol.converter.model.Country;
@@ -45,8 +46,9 @@ public class IndexController {
 		model.addAttribute("countries", countryService.getAllCountries());
 		model.addAttribute("requestCountryId", countryId);
        
-		if (price == null) {
-			model.addAttribute("error", "Price can't by empty");
+		String validate = validate(price, countryId);
+		if (validate != null) {
+			model.addAttribute("error", validate);
 			return CONVERTER_PAGE;
 		}
 		
@@ -67,6 +69,23 @@ public class IndexController {
 		model.addAttribute("resultValue", resultValue);
 		return CONVERTER_PAGE;
     }
+	
+	
+	private String validate(BigDecimal price, Long countryId) {
+		if (price == null) {
+			return "Price can't by empty";
+		}
+		
+		if (price.compareTo(BigDecimal.ZERO) < 0) {
+			return "Price can't by less then zero";
+		}
+		
+		if (countryId == null) {
+			return "You must choise country";
+		}
+		
+		return null;
+	}
 	
 	
 }
