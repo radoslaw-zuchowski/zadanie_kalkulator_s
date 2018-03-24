@@ -1,0 +1,23 @@
+<databaseChangeLog 
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+   http://www.liquibase.org/xml/ns/dbchangelog 
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    
+    <changeSet author="zuchol" id="create_table_1">
+    
+    	<createTable tableName="countries">
+	        <column name="id" type="number(19,0)" autoIncrement="true"> 
+            	<constraints primaryKey="true" />
+            </column>
+            <column name="name" type="varchar(255)" />
+            <column name="currency_code" type="varchar(3)" />
+            <column name="constant_variable" type="number(19,2)" />
+            <column name="tax" type="number(19,2)" />
+	    </createTable>
+    
+    </changeSet>
+</databaseChangeLog>
