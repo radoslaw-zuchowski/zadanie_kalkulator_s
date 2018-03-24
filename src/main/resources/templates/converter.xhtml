@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Money converter</title>
+</head>
+<body>
+	
+
+    <form action="#" th:action="@{/}" method="post">
+		
+		<label th:text="Kwota" for="value"></label>
+		<input type="number" 
+			min="0" 
+			step="0.01" 
+			id="price" 
+			name="price" 
+			th:value="${requestValue}" />
+		
+		
+		
+		<label th:text="Kraj" for="countries"></label>
+		<select id="country" name="country">
+			<option th:each="country : ${countries}" 
+				th:value="${country.id}" 
+				th:text="${country.name}"
+				th:selected="${country.id == requestCountryId}">
+			</option>
+		</select> 
+	
+    	<p>
+        	<input type="submit" value="Submit" />
+        </p>
+        
+    </form>
+	
+	
+	<label th:text="${resultValue}"></label>
+	
+	
+</body>
+</html>
