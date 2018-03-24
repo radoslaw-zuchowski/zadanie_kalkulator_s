@@ -22,6 +22,10 @@ import lombok.Setter;
 @Transactional
 public class CountryServiceImpl implements CountryService {
 
+	public static final BigDecimal ONE_HUNDRED = new BigDecimal(100);
+	public static final BigDecimal DAYS_IN_MONTH = new BigDecimal(22);
+
+	
 	@Autowired
 	private CountryRepository countryRepository;
 	@Autowired
@@ -56,15 +60,20 @@ public class CountryServiceImpl implements CountryService {
 	public String getPayment(BigDecimal value, Long countryId) {
 		
 		Country country = getCountryById(countryId);
+		BigDecimal monthValue = value.multiply(DAYS_IN_MONTH);
+		BigDecimal taxes = getTaxes(monthValue, country);
+		BigDecimal result = monthValue.subtract(taxes);
 		
-		BigDecimal monthValue = value.multiply(new BigDecimal(22));
-		BigDecimal taxValue = monthValue.multiply(country.getTax());
-		
-		return monthValue.toString();
+		return result.toString();
 	}
 	
 	
-	
+	private BigDecimal getTaxes(BigDecimal value, Country country) {
+		BigDecimal staticTax = country.getConstantVariable();
+		BigDecimal tax = value.multiply(country.getTax().divide(ONE_HUNDRED));
+		BigDecimal allTaxes = staticTax.add(tax);
+		return value.subtract(allTaxes);
+	}
 	
 	
 	
