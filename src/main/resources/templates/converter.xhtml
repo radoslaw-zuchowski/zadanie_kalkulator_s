@@ -6,21 +6,22 @@
     	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
     	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
     	crossorigin="anonymous">
-    <title>Money converter</title>
+    <title>Converter</title>
 </head>
 <body>
 
 	<div class="container-fluid">
-	  	<p class="h2 text-center">Converter</p>
+	  	<p class="h2 text-center" th:text="#{general.title}"></p>
 	
 		<div class="alert alert-danger" th:if="${error}">
-		    <p th:text="${error}"></p>    
+		    <p th:text="#{general.error}"></p>
+		    <p th:text="${error}"></p>
 		</div>
 		
 		<div class="panel-body">
 			<form action="#" th:action="@{/}" method="post" class="form-horizontal">
 			    <div class="form-group">
-					<label th:text="Kwota" for="price" class="col-sm-4 control-label"/>
+					<label th:text="#{form.value}" for="price" class="col-sm-4 control-label"/>
 					<input type="number"
 						class="col-sm-6 form-control"
 						min="0" 
@@ -30,7 +31,7 @@
 						th:value="${requestValue}" />
 				</div>
 				<div class="form-group">		
-					<label th:text="Kraj" for="country" class="col-sm-4 control-label"/>
+					<label th:text="#{form.country}" for="country" class="col-sm-4 control-label"/>
 					<select id="country" name="country" class="col-sm-6 form-control">
 						<option th:each="country : ${countries}" 
 							th:value="${country.id}" 
@@ -39,15 +40,14 @@
 						</option>
 					</select> 
 				</div>
-			        <input type="submit" value="Submit" class="btn btn-dark"/>
+			        <input type="submit" th:value="#{form.submit}" class="btn btn-dark"/>
 			    
 		   	</form>
 	   	</div>
 	   	
 	   	
 	 	<div class="panel-body" th:if="${resultValue}">
-	 		<label class="h5 text-center">Kwota po odliczeniu podatków: </label>
-	    	<label class="h3 text-center" th:text="${resultValue}" />
+	    	<label class="h3 text-center" th:text="#{result.text(${resultValue})}" />
 	 	</div>
 	</div>
 	
