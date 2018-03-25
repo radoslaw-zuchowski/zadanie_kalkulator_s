@@ -53,9 +53,11 @@ public class IndexController {
 			model.addAttribute("error", validate);
 			return CONVERTER_PAGE;
 		}
-		
-		
-		
+		return getPayment(model, price, countryId);
+    }
+	
+	
+	private String getPayment(Model model, BigDecimal price, Long countryId) {
 		String resultValue;
 		try {
 			resultValue = countryService.getPayment(price, countryId);
@@ -69,10 +71,16 @@ public class IndexController {
 			return CONVERTER_PAGE;
 		}
 		
+		if (resultValue == null) {
+			log.error("Bad parameters");
+			model.addAttribute("error", messageService.getMessage("errors.bad.parameters"));
+			return CONVERTER_PAGE;
+		}
+		
 		model.addAttribute("requestValue", price);
 		model.addAttribute("resultValue", resultValue);
 		return CONVERTER_PAGE;
-    }
+	}
 	
 	
 	private String validate(BigDecimal price, Long countryId) {

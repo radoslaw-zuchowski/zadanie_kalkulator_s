@@ -37,6 +37,13 @@ public interface CountryService {
 	 */
 	void deleteCountry(Long id);
 	
+	/**
+	 * Remove country
+	 * 
+	 * @param country country
+	 */
+	void deleteCountry(Country country);
+	
 	
 	/**
 	 * Get all countries

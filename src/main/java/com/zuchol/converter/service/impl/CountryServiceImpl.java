@@ -52,6 +52,11 @@ public class CountryServiceImpl implements CountryService {
 		countryRepository.deleteById(id);
 	}
 	
+	@Override
+	public void deleteCountry(Country country) {
+		countryRepository.delete(country);
+		
+	}
 	
 	@Override
 	public List<Country> getAllCountries() {
@@ -63,7 +68,16 @@ public class CountryServiceImpl implements CountryService {
 	public String getPayment(BigDecimal value, Long countryId) 
 			throws IOException, JSONException  {
 		
+		if ((value == null) || (countryId == null)) {
+			return null;
+		}
+		
 		Country country = getCountryById(countryId);
+		
+		if (country == null) {
+			return null;
+		}
+		
 		BigDecimal monthValue = value.multiply(DAYS_IN_MONTH);
 		BigDecimal taxes = getTaxes(monthValue, country);
 		BigDecimal result = monthValue.subtract(taxes);
@@ -86,6 +100,9 @@ public class CountryServiceImpl implements CountryService {
 		BigDecimal resultValue = value.multiply(course);
 		return resultValue.setScale(2, RoundingMode.HALF_UP);
 	}
+
+
+	
 	
 	
 }
