@@ -2,9 +2,11 @@
 Web page for calculate gross day value to month nett value.
 
 #Getting Started
-Web page is on 
-http://localhost:8080/
+Web page is on http://localhost:8080/
 
+#Information
+Database H2 console in http://localhost:8080/h2
+Database name: convert 
 
 #Build with
 * Maven - dependency management
