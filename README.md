@@ -16,6 +16,7 @@ Database name: convert
 * H2 -database engine
 * Lombok -boilerplate generator
 * org.json -json encoder
+* Bootstrap - css library
 	
 #Authors
 Radosław Żuchowski - all work
